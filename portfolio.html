@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Portfolio</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, intial-scale=1"/>
+<link rel="stylesheet" href="bootstrap.min.css"/>
+<script src="bootstrap.min.js"></script>
+<script src="jquery-3.1.1.min.js"></script>
+<style>
+*{
+box-sizing:border-box;}
+
+#header{
+height:50px;
+background-color:red;
+padding-top:5px;
+color:white;
+font-size:25px;
+}
+#images{
+list-style-type:none;}
+#images li{
+display:inline-block;
+padding-left:30px;}
+#images li img{
+margin-top:20px;
+height:200px;
+width:300px;}
+#overlay{
+display:none;
+width:100%;
+height:100%;
+position:fixed;
+background-color:black;
+opacity:0.6;}
+#frame{
+display:none;
+width:500px;
+height:500px;
+position:fixed;
+left:34%;
+margin-top:50px;
+background-color:white;}
+#main{
+width:450px;
+height:500px;
+position:relative;
+z-index:-1;
+}
+#left{
+position:absolute;
+margin-top:220px;
+}
+#right{
+position:absolute;
+margin-left:428px;
+margin-top:220px;}
+</style>
+<script>
+$(document).ready(function(){
+var current_li;
+$("#images img").click(function(){
+var src=$(this).attr("src");
+current_li=$(this).parent();
+$("#main").attr("src",src);
+$("#frame").fadeIn();
+$("#overlay").fadeIn();
+});
+$("#overlay").click(function(){
+$("#frame").fadeOut();
+$("#overlay").fadeOut();
+});
+$("#right").click(function(){
+if(current_li.is(":last-child")){
+var next_li=$("#images li").first();
+}
+else{
+var next_li=current_li.next();
+}
+var next_src=next_li.children("img").attr("src");
+$("#main").attr("src",next_src);
+current_li=next_li;
+});
+$("#left").click(function(){
+if(current_li.is(":first-child")){
+var prev_li=$("#images li").last();
+}
+else{
+var prev_li=current_li.prev();
+}
+var prev_src=prev_li.children("img").attr("src");
+$("#main").attr("src",prev_src);
+current_li=prev_li;
+});
+});
+</script>
+</head>
+<body>
+<div class="container-fluid">
+<div class="row" id="header">
+<div class="col-sm-12" style="text-decoration:blink;"><strong><center>Jquery Portfolio</center></strong></div>
+</div>
+<div class="row" id="overlay"></div>
+<div class="row" id="frame">
+<button id="left" class="btn btn-primary">Left</button>
+<button id="right" class="btn btn-primary">Right</button>
+<center><img id="main" src="" class="img-circle"/></center>
+</div>
+<div class="row" id="images">
+<li><img src="img1.jpg" alt="NoImage" class="img-circle"/></li>
+<li><img src="img2.jpg" alt="NoImage" class="img-circle"/></li>
+<li><img src="img3.jpg" alt="NoImage" class="img-circle"/></li>
+<li><img src="img4.jpg" alt="NoImage" class="img-circle"/></li>
+<li><img src="img5.jpg" alt="NoImage" class="img-circle"/></li>
+<li><img src="img6.jpg" alt="NoImage" class="img-circle"/></li>
+</div>
+</div>
+</body>
+</html>
